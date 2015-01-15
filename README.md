@@ -1,6 +1,18 @@
 # XOR Doubly Linked List
 
-Implementation of a 'XOR Doubly Linked List', or 'Memory Efficient Doubly Linked List', in C.
+Implementation of a generic 'XOR Doubly Linked List', or 'Memory Efficient Doubly Linked List', in C.
+The default storage type is ''void *'' but can be changed to any other data type pointer for simplicity
+by editting the ```cxordll.h``` file and changing the following line:
+
+```c
+/** @XORItem Generic Type **
+ *
+ *  Change as needed!
+ *  N.B. Only store pointers since @XORList does not
+ *  store local copies.
+ */
+typedef void XORItem;
+```
 
 This implementation also comes with a bi-directional iterator to make traversals simplified.
 
