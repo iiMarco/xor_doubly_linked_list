@@ -22,17 +22,17 @@ int main()
     printf("%p %p %p %p %p\n",&a,&b,&c,&d,&e);
 
     XORListIterator itr = xorlist_iterator_reverse(list);
-    int i = 0;
+
     for( ;
         xorlist_iterator_has_next(&itr);
-        xorlist_iterator_next(&itr) && ++i) {
+        xorlist_iterator_next(&itr)) {
 
         printf("Current : %p\n",xorlist_iterator_curr(&itr));
     }
 
     for(xorlist_iterator_prev(&itr);
         xorlist_iterator_has_prev(&itr);
-        xorlist_iterator_prev(&itr) && ++i) {
+        xorlist_iterator_prev(&itr)) {
 
         printf("Current : %p\n",xorlist_iterator_curr(&itr));
     }
