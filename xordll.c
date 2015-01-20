@@ -9,7 +9,7 @@
 // NEXTNEXT = XOR(CURR,NEXT->LINK)
 
 struct _xornode_ {
-    XORItem * e;
+    void * e;
     struct _xornode_ * npx;
 };
 
@@ -47,7 +47,7 @@ void xorlist_destroy(XORList * list) {
     free(list);
 }
 
-XORItem * xorlist_push_back(XORList * list, XORItem * e) {
+void * xorlist_push_back(XORList * list, void * e) {
     if(list == NULL)
         return NULL;
 
@@ -63,15 +63,15 @@ XORItem * xorlist_push_back(XORList * list, XORItem * e) {
     }
 
     list->size++;
-    return (XORItem*)(list->tail = node);
+    return (void*)(list->tail = node);
 }
 
-XORItem * xorlist_pop_back(XORList * list) {
+void * xorlist_pop_back(XORList * list) {
     if(list == NULL || list->tail == NULL)
         return NULL;
 
     XORNode * old = list->tail;
-    XORItem * old_e = old->e;
+    void * old_e = old->e;
 
     XORNode * prev = xorlist_xor(NULL, list->tail->npx);
     XORNode * prevprev = xorlist_xor(list->tail, prev->npx);
@@ -116,16 +116,27 @@ XORListIterator xorlist_iterator_reverse(XORList * list) {
     return itr;
 }
 
+bool xorlist_iterator_at_end(XORListIterator * itr) {
+    return (itr ? !itr->next && !itr->curr : false);
+}
+
+bool xorlist_iterator_at_begin(XORListIterator * itr) {
+    return (itr ? !itr->prev && !itr->curr: false);
+}
 
 bool xorlist_iterator_has_next(XORListIterator * itr) {
-    return (itr ? itr->next || itr->curr : false);
+    return (itr ? itr->next : false);
 }
 
 bool xorlist_iterator_has_prev(XORListIterator * itr) {
-    return (itr ? itr->prev || itr->curr : false);
+    return (itr ? itr->prev : false);
 }
 
-XORItem * xorlist_iterator_next(XORListIterator * itr) {
+bool xorlist_iterator_has_curr(XORListIterator * itr) {
+    return (itr ? itr->curr : false);
+}
+
+void * xorlist_iterator_next(XORListIterator * itr) {
     if(!itr || (!itr->curr && !itr->next))
         return NULL;
 
@@ -142,7 +153,7 @@ XORItem * xorlist_iterator_next(XORListIterator * itr) {
     return (itr->curr ? itr->curr->e : NULL);
 }
 
-XORItem * xorlist_iterator_prev(XORListIterator * itr) {
+void * xorlist_iterator_prev(XORListIterator * itr) {
     if(!itr || (!itr->curr && !itr->prev))
         return NULL;
 
@@ -159,9 +170,8 @@ XORItem * xorlist_iterator_prev(XORListIterator * itr) {
     return (itr->curr ? itr->curr->e : NULL);
 }
 
-XORItem * xorlist_iterator_curr(XORListIterator * itr) {
+void * xorlist_iterator_curr(XORListIterator * itr) {
     return (itr && itr->curr ?
             (itr->curr ? itr->curr->e : NULL) :
             NULL);
 }
-
