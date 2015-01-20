@@ -36,14 +36,14 @@ int main()
     XORListIterator itr = xorlist_iterator_reverse(list);
 
     for( ;
-        xorlist_iterator_has_next(&itr);
+        !xorlist_iterator_at_end(&itr);
         xorlist_iterator_next(&itr)) {
 
         printf("Current : %p\n",xorlist_iterator_curr(&itr));
     }
 
     for(xorlist_iterator_prev(&itr);
-        xorlist_iterator_has_prev(&itr);
+        !xorlist_iterator_at_begin(&itr);
         xorlist_iterator_prev(&itr)) {
 
         printf("Current : %p\n",xorlist_iterator_curr(&itr));
